@@ -2,6 +2,8 @@
 fail_bit=0
 first_arg=$1
 second_arg=$2
+shift
+shift
 
 #CHECK DIRECTORY FOR Makefile
 filename=$(find "$first_arg" -maxdepth 1 -name 'Makefile*' -not -name 'Makefile~') #finds the file, returns an empty string if not found
@@ -13,7 +15,7 @@ else
 fi
 
 #if file FOUND, then compilation failed
-maker=$(make --directory=$1 "$@" >/dev/null; echo $?)
+maker=$(make --directory=$first_arg "$@" >/dev/null; echo $?)
 if (( maker == 0 ))
 then
 	compiled="SUCCESS"
