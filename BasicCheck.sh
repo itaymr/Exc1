@@ -1,6 +1,6 @@
 #!/bin/bash
 fail_bit=0
-echo "TESTING: THE SECOND ARG YOU SEND AUTOMATICALLY IS $2"
+echo "The second argument is: $2"
 first_arg=$1
 second_arg=$2
 shift
@@ -27,9 +27,8 @@ else
 fi
 echo "COMPILATION IS: $compiled"
 
-echo "TESTING2TEST:"
+echo "trying to execute ./main"
 ./main
-echo "TESTING2TEST"
 
 #VALGRIND RUN, WILL THROW AN ERROR CODE 55
 leak=$(valgrind --leak-check=full --error-exitcode=254 ./$second_arg "$@" >/dev/null; echo $?)
