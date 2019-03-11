@@ -28,7 +28,7 @@ echo "COMPILATION IS: $compiled"
 
 
 #VALGRIND RUN, WILL THROW AN ERROR CODE 55
-leak=$(valgrind --leak-check=full --error-exitcode=254 $second_arg "$@" >/dev/null; echo $?)
+leak=$(valgrind --leak-check=full --error-exitcode=254 ./$second_arg "$@" >/dev/null; echo $?)
 if (( $leak == 254 ));then
 	mem_leak="FAIL"
 	fail_bit=$(( $fail_bit + 2 ))
@@ -36,7 +36,7 @@ else
 	mem_leak="SUCCESS"
 fi
 
-valgrind --error-exitcode=245 --tool=helgrind $second_arg "$@"; return_code=$?;
+valgrind --error-exitcode=245 --tool=helgrind ./$second_arg "$@"; return_code=$?;
 if (( $return_code == 245 ));then
 	thread_leak="FAIL"
 	fail_bit=$(( $fail_bit + 1 ))
