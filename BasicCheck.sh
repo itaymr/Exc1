@@ -13,13 +13,14 @@ else
 fi
 
 #if file FOUND, then compilation failed
-maker=$(make directory=$1 "$@" >/dev/null; echo $?)
+maker=$(make --directory=$1 "$@" >/dev/null; echo $?)
 if (( maker == 0 ))
 then
 	compiled="SUCCESS"
 else
 	compiled="FAILURE"
-	exit (( $fail_bit + 4 ))
+	fail_bit=$(( $fail_bit + 7 ))
+	exit $fail_bit
 fi
 echo "COMPILATION IS: $compiled"
 
