@@ -15,22 +15,20 @@ else
 	exit $fail_bit
 fi
 
-#if file FOUND, then compilation failed
+#if file FOUND and make doesn't succeed, it means compilation has failed
 maker=$(make --directory=$first_arg "$@" >/dev/null; echo $?)
 if (( maker == 0 ))
 then
 	compiled="SUCCESS"
+	echo "Compilation is: $compiled"
 else
-	compiled="FAILURE"
+	echo "Compilation is: $compiled"
+
 	fail_bit=$(( $fail_bit + 7 ))
 	exit $fail_bit
 fi
-echo "COMPILATION IS: $compiled"
 
-echo "trying to execute ./main"
-./main
-
-#VALGRIND RUN, WILL THROW AN ERROR CODE 55
+#VALGRIND RUN, WILL THROW AN ERROR CODE 254
 leak=$(valgrind --leak-check=full --error-exitcode=254 ./$first_arg/$second_arg "$@" >/dev/null; echo $?)
 if (( $leak == 254 ));then
 	mem_leak="FAIL"
@@ -39,6 +37,7 @@ else
 	mem_leak="SUCCESS"
 fi
 
+#HELGRIND WILL THROW AN ERROR 245
 valgrind --error-exitcode=245 --tool=helgrind ./$first_arg/$second_arg "$@"; return_code=$?;
 if (( $return_code == 245 ));then
 	thread_leak="FAIL"
