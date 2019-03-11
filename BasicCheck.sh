@@ -27,6 +27,9 @@ else
 fi
 echo "COMPILATION IS: $compiled"
 
+echo "TESTING2TEST:"
+./main
+echo "TESTING2TEST"
 
 #VALGRIND RUN, WILL THROW AN ERROR CODE 55
 leak=$(valgrind --leak-check=full --error-exitcode=254 ./$second_arg "$@" >/dev/null; echo $?)
