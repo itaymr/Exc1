@@ -1,5 +1,6 @@
 #!/bin/bash
 fail_bit=0
+echo "TESTING: THE SECOND ARG YOU SEND AUTOMATICALLY IS $2"
 first_arg=$1
 second_arg=$2
 shift
