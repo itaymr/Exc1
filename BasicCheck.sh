@@ -1,6 +1,5 @@
 #!/bin/bash
 fail_bit=0
-echo "The second argument is: $2"
 first_arg=$1
 second_arg=$2
 shift
